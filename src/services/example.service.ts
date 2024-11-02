@@ -1,5 +1,11 @@
+import { QueryResult } from 'pg';
 import { pool } from '../util/db.ts';
 import { NextFunction, Request, Response } from 'express';
+
+interface userRow {
+  email: string;
+  password: string;
+}
 
 const exampleFunction = async (
   req: Request,
@@ -12,7 +18,7 @@ const exampleFunction = async (
 };
 
 const pgDbExample = async (req: Request, res: Response, next: NextFunction) => {
-  const user = await pool.query(
+  const user: QueryResult<userRow> = await pool.query(
     'Select email, password from users where id = 13'
   );
   const { email, password } = user.rows[0];
