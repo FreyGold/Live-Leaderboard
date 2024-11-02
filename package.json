@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "@types/express": "5.0.0",
+    "body-parser": "1.20.3",
+    "dotenv": "16.4.5",
+    "express": "4.21.1",
+    "mongoose": "8.8.0",
+    "nodemon": "3.1.7",
+    "pg": "8.13.1",
+    "pg-promise": "11.10.1",
+    "tsx": "4.19.2"
+  },
+  "name": "streamingplatform",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "dev": "tsx watch --env-file=.env src/server.ts",
+    "type-check": "tsc --noEmit",
+    "test": "tsx test/**/*.test.ts",
+    "build": "tsc --noEmit && tsx src/server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/pg": "8.11.10"
+  }
+}
