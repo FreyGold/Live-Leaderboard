@@ -1,5 +1,5 @@
 11/05 goal:
-- implement authentecation:
+- implement authentication:
   - [ ] Implement basic authentication
   - [ ] Use JWT
   - [ ] Use OAuth2
