@@ -1,8 +1,8 @@
 import { Request, Response, Router } from 'express';
-import { exampleFunction, pgDbExample } from 'services/example.service.ts';
+import { exampleFunction, getUser } from 'services/example.service.ts';
 
 const router = Router();
 
-router.route('/').get(pgDbExample);
+router.route('/').get(getUser);
 
 export default router;
