@@ -2,6 +2,7 @@
   - [x] Integrate Postgres DB using prisma
   - [x] Get familiar with prisma migrations
   - [x] Implement some basic crud operations using prisma
+  - [x] Implemented basic caching using prisma acceleration
   - all those were done on 11/06
 - implement authentication:
   - [ ] Implement basic authentication
