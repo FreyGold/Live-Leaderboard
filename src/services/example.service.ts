@@ -36,11 +36,9 @@ const getUser = catchAsync(
       });
     }
 
-    const { email, password } = user;
     res.status(200).json({
       message: 'doable',
-      email: email,
-      password: password,
+      user,
     });
   }
 );
