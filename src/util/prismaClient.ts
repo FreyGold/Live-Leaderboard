@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
 const prisma = new PrismaClient({
   omit: {
@@ -6,6 +7,6 @@ const prisma = new PrismaClient({
       password: true,
     },
   },
-});
+}).$extends(withAccelerate());
 
 export default prisma;

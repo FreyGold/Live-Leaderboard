@@ -28,6 +28,9 @@ const getUser = catchAsync(
       where: {
         email: req.body.email,
       },
+      cacheStrategy: {
+        ttl: 60,
+      },
     });
 
     if (!user) {

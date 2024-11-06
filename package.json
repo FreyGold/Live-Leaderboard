@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@prisma/client": "5.22.0",
+    "@prisma/extension-accelerate": "1.2.1",
     "@types/cors": "2.8.17",
     "@types/express": "5.0.0",
     "@types/jsonwebtoken": "9.0.7",
