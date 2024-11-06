@@ -1,27 +1,42 @@
-import { QueryResult } from 'pg';
-import { pool } from '../util/db.ts';
 import { NextFunction, Request, Response } from 'express';
 import { catchAsync } from 'util/catchAsync.ts';
+import prisma from 'util/prismaClient.ts';
 
-interface userRow {
-  email: string;
-  password: string;
-}
-
-const exampleFunction = catchAsync(
+const createUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const user = await prisma.user.create({
+      data: {
+        email: req.body.email,
+        password: req.body.password,
+        name: req.body.password,
+      },
+    });
     res.status(200).json({
       message: 'good',
+      user,
     });
   }
 );
 
 const getUser = catchAsync(
-  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const user: QueryResult<userRow> = await pool.query(
-      `Select email, password from users where id = ${req.body.userId}`
-    );
-    const { email, password } = user.rows[0];
+  async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void | Response> => {
+    const user = await prisma.user.findFirst({
+      where: {
+        email: req.body.email,
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        status: 'not found',
+      });
+    }
+
+    const { email, password } = user;
     res.status(200).json({
       message: 'doable',
       email: email,
@@ -30,4 +45,4 @@ const getUser = catchAsync(
   }
 );
 
-export { exampleFunction, getUser };
+export { createUser, getUser };
