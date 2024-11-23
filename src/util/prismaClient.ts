@@ -9,4 +9,6 @@ const prisma = new PrismaClient({
   },
 }).$extends(withAccelerate());
 
+prisma.$extends({
+})
 export default prisma;
