@@ -1,14 +1,14 @@
-import express from "express";
 import {
-    registerUser,
-    authenticateUser,
-    logoutUser,
-} from "../controllers/auth.controller.ts";
+  authenticateUser,
+  logoutUser,
+  registerUser,
+} from 'controllers/auth.controller.ts';
+import express from 'express';
 
 const router = express.Router();
 
-router.post("/register", registerUser);
-router.post("/login", authenticateUser);
-router.post("/logout", logoutUser);
+router.post('/register', registerUser);
+router.post('/login', authenticateUser);
+router.post('/logout', logoutUser);
 
 export default router;

@@ -9,8 +9,9 @@ interface UserDto {
 }
 
 interface UserSignupDto {
-  id: number;
   email: string;
   password: string;
   name: string;
 }
+
+export { UserDto, UserSignupDto };

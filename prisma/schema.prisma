@@ -11,11 +11,13 @@ datasource db {
 model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
-  password  String    @db.VarChar(32)
+  password  String    @db.VarChar(100)
   name      String?
-  posts     Post[]
+  posts     Post[]    
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+
+  @@map("users")
 }
 
 model Post {
@@ -27,4 +29,6 @@ model Post {
   authorId  Int?
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+
+  @@map("Posts")
 }
