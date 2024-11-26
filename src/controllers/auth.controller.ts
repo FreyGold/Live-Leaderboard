@@ -1,6 +1,6 @@
 import { UserDto, UserSignupDto } from 'dtos/user.dto.ts';
 import { Request, Response } from 'express';
-import { generateToken } from 'util/auth.ts';
+import { clearToken, generateToken } from 'util/auth.ts';
 import { catchAsync } from 'util/catchAsync.ts';
 import bcrypt from 'bcryptjs';
 import prisma from 'util/prismaClient.ts';
@@ -71,6 +71,9 @@ const authenticateUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const logoutUser = catchAsync(async (req: Request, res: Response) => {});
+const logoutUser = catchAsync(async (req: Request, res: Response) => {
+  clearToken(res);
+  res.status(200).json({ status: 'success', message: 'User logged out' });
+});
 
 export { registerUser, authenticateUser, logoutUser };
