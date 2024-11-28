@@ -5,7 +5,8 @@
   - [x] Implemented basic caching using prisma acceleration
   - all those were done on 11/06
 - implement authentication:
-  - [ ] Implement basic authentication
-  - [ ] Use JWT
+  - [x] Implement Authentication -using bcrypt-
+  - [x] Use JWT
+   - done on 11/26 
   - [ ] Use OAuth2
 
