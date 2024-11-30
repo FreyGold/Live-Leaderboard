@@ -9,26 +9,38 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String    @db.VarChar(100)
-  name      String?
-  posts     Post[]    
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  id Int @id @default(autoincrement())
+  username String @unique
+  email String @unique
+  password String @db.VarChar(60)
+  scores Score[]
+  role String @default("user")
+  created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
 
   @@map("users")
 }
 
-model Post {
-  id        Int       @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean   @default(false)
-  author    User?     @relation(fields: [authorId], references: [id])
-  authorId  Int?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
 
-  @@map("Posts")
+model Game {
+  id Int @id @default(autoincrement())
+  name String
+  rating Int
+  scores Score[]
+  created_at DateTime @default(now()) 
+
+  @@map("games")
+}
+
+model Score {
+  id Int @id @default(autoincrement())
+  score Float
+  user_id Int 
+  game_id Int
+  created_at DateTime @default(now())
+
+  user       User      @relation(fields: [user_id], references: [id])
+  game       Game      @relation(fields: [game_id], references: [id])
+
+  @@map("scores")
 }
