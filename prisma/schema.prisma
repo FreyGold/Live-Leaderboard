@@ -28,6 +28,8 @@ model Game {
   rating Int
   scores Score[]
   created_at DateTime @default(now()) 
+  updated_at DateTime? @updatedAt
+
 
   @@map("games")
 }
@@ -38,6 +40,8 @@ model Score {
   user_id Int 
   game_id Int
   created_at DateTime @default(now())
+  updated_at DateTime? @updatedAt
+
 
   user       User      @relation(fields: [user_id], references: [id])
   game       Game      @relation(fields: [game_id], references: [id])

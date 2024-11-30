@@ -1,4 +1,4 @@
-import { UserDto, UserSignupDto } from 'dtos/user.dto.ts';
+import { UserSignupDto } from 'dtos/user.dto.ts';
 import { Request, Response } from 'express';
 import { clearToken, generateToken } from 'util/auth.ts';
 import { catchAsync } from 'util/catchAsync.ts';
@@ -33,7 +33,7 @@ const registerUser = catchAsync(async (req: Request, res: Response) => {
   res.status(201).json({
     message: 'Success',
     id: user.id,
-    name: user.name,
+    username: user.username,
     email: user.email,
   });
 });
@@ -44,7 +44,7 @@ const authenticateUser = catchAsync(async (req: Request, res: Response) => {
     where: { email },
     select: {
       id: true,
-      name: true,
+      username: true,
       email: true,
       password: true,
     },
@@ -66,7 +66,7 @@ const authenticateUser = catchAsync(async (req: Request, res: Response) => {
   generateToken(res, user.id);
   res.status(201).json({
     id: user.id,
-    name: user.name,
+    username: user.username,
     email: user.email,
   });
 });

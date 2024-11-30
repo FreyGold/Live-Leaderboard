@@ -2,7 +2,7 @@ interface UserDto {
   id: number;
   email: string;
   password: string;
-  name: string;
+  username: string;
   posts: string[];
   createdAt: Date;
   updatedAt: Date;
@@ -11,7 +11,7 @@ interface UserDto {
 interface UserSignupDto {
   email: string;
   password: string;
-  name: string;
+  username: string;
 }
 
 export { UserDto, UserSignupDto };
