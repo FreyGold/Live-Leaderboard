@@ -7,6 +7,5 @@
 - implement authentication:
   - [x] Implement Authentication -using bcrypt-
   - [x] Use JWT
-   - done on 11/26 
-  - [ ] Use OAuth2
+   - done on 11/26
 
