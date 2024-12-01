@@ -13,9 +13,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(authRouter);
-app.use('/user', userRouter);
+app.use('/users', userRouter);
 app.use('/scores', scoreRouter);
-app.use('/game', gameRouter);
+app.use('/games', gameRouter);
 app.use(globalErrorHandler);
 
 export default app;

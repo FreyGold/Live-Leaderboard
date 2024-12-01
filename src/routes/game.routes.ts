@@ -1,6 +1,7 @@
 import {
   createGame,
   deleteGame,
+  readAllGames,
   readGame,
   updateGame,
 } from 'controllers/game.controller.ts';
@@ -12,6 +13,6 @@ const router = express.Router();
 router.route('/:id').get(readGame).delete(deleteGame).patch(updateGame);
 router.route('/new-game').post(createGame);
 // Read all scores
-router.route('/').get();
+router.route('/').get(readAllGames);
 
 export default router;

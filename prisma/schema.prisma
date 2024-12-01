@@ -25,7 +25,7 @@ model User {
 model Game {
   id Int @id @default(autoincrement())
   name String
-  rating Int
+  rating Float
   scores Score[]
   created_at DateTime @default(now()) 
   updated_at DateTime? @updatedAt

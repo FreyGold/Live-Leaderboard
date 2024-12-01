@@ -1,6 +1,7 @@
 import {
   createScore,
   deleteScore,
+  readAllScores,
   readScore,
   updateScore,
 } from 'controllers/score.controller.ts';
@@ -12,6 +13,6 @@ const router = express.Router();
 router.route('/:id').get(readScore).delete(deleteScore).patch(updateScore);
 router.route('/new-score').post(createScore);
 // Read all scores
-router.route('/').get();
+router.route('/').get(readAllScores);
 
 export default router;

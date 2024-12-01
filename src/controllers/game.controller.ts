@@ -22,7 +22,12 @@ const updateGame = catchAsync(async (req: Request, res: Response) => {
     name: req.body.name,
     rating: req.body.rating,
   };
+  console.log(req.body);
   gameFactory.updateRecord(req, res);
 });
 
-export { readGame, createGame, deleteGame, updateGame };
+const readAllGames = catchAsync(async (req: Request, res: Response) => {
+  gameFactory.getAllRecords(req, res);
+});
+
+export { readGame, createGame, deleteGame, updateGame, readAllGames };

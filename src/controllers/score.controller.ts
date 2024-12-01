@@ -25,4 +25,8 @@ const updateScore = catchAsync(async (req: Request, res: Response) => {
   scoreFactory.updateRecord(req, res);
 });
 
-export { readScore, createScore, deleteScore, updateScore };
+const readAllScores = catchAsync(async (req: Request, res: Response) => {
+  scoreFactory.getAllRecords(req, res);
+});
+
+export { readScore, createScore, deleteScore, updateScore, readAllScores };
