@@ -1,0 +1,33 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table User {
+  id integer [primary key]
+  username varchar2
+  email varchar2
+  password varchar2
+  role varchar2
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table Game {
+  id integer [primary key]
+  name varchar2
+  rating integer
+  created_at timestamp 
+}
+
+Table Score {
+  id integer [primary key]
+  score float
+  user_id integer
+  game_id integer
+  created_at timestamp
+}
+
+Ref: Score.user_id - User.id
+Ref: Score.game_id - Game.id
