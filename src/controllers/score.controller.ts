@@ -1,64 +1,28 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { catchAsync } from 'util/catchAsync.ts';
-import prisma from 'util/prismaClient.ts';
+import factory from 'util/factory.ts';
+
+const scoreFactory = factory('score');
 
 const readScore = catchAsync(async (req: Request, res: Response) => {
-  const score = await prisma.score.findUnique({
-    where: {
-      id: Number(req.params.id),
-    },
-  });
-
-  if (!score) {
-    return res.status(400).json({ message: 'no score with this id was found' });
-  }
-  res.status(200).json({
-    status: 'success',
-    score: score,
-  });
+  await scoreFactory.readRecord(req, res);
 });
-
 const createScore = catchAsync(async (req: Request, res: Response) => {
-  const score = await prisma.score.create({
-    data: {
-      score: req.body.score,
-      user_id: req.body.userId,
-      game_id: req.body.gameId,
-    },
-  });
-
-  res.status(201).json({
-    status: 'success',
-    score: score,
-  });
+  req.body = {
+    score: req.body.score,
+    user_id: req.body.user_id,
+    game_id: req.body.game_id,
+  };
+  await scoreFactory.createRecord(req, res);
 });
-
 const deleteScore = catchAsync(async (req: Request, res: Response) => {
-  const score = await prisma.score.delete({
-    where: {
-      id: Number(req.params.id),
-    },
-  });
-
-  res.status(200).json({
-    status: 'success',
-    score: score,
-  });
+  scoreFactory.deleteRecord(req, res);
 });
-
 const updateScore = catchAsync(async (req: Request, res: Response) => {
-  const score = await prisma.score.update({
-    where: {
-      id: Number(req.params.id),
-    },
-    data: {
-      score: req.body.score,
-    },
-  });
-
-  res.status(200).json({
-    status: 'success',
-    score: score,
-  });
+  req.body = {
+    score: req.body.score,
+  };
+  scoreFactory.updateRecord(req, res);
 });
+
 export { readScore, createScore, deleteScore, updateScore };
