@@ -7,10 +7,9 @@ const redisClient = new Redis();
 
 const getTopPlayers = catchAsync(async (req: Request, res: Response) => {
   const limit: number = parseInt(req.body.limit) || 100;
-  // Retrieve top players from Redis sorted set in descending order
+  // zrevrange return all members of sorted set by descending order
   const topPlayerIds = await redisClient.zrevrange('leaderboard', 0, limit - 1);
-  console.log(topPlayerIds);
-  // Fetch user details for these top players
+  // use promise.all to resolve many promises at once
   const topPlayersWithDetails = await Promise.all(
     topPlayerIds.map(async (user_id, index) => {
       const user = await prisma.user.findUnique({
@@ -18,23 +17,56 @@ const getTopPlayers = catchAsync(async (req: Request, res: Response) => {
         select: { id: true, username: true },
       });
 
-      // Get the score for this user
       const score = await redisClient.zscore('leaderboard', user_id);
 
       return {
         rank: index + 1,
-        userId: user.id,
+        user_id: user.id,
         username: user.username,
         score: parseFloat(score),
       };
     })
   );
+  console.log(topPlayersWithDetails);
 
   if (!topPlayersWithDetails) {
     console.error('Error fetching top players');
-    return [];
+    return res.status(400).json({
+      status: 'fail',
+      topPlayers: [],
+    });
   }
-  return topPlayersWithDetails;
+  res.status(200).json({
+    status: 'success',
+    topPlayersWithDetails,
+  });
 });
 
-export { getTopPlayers };
+const getPlayerRank = catchAsync(async (req: Request, res: Response) => {
+  const user_id: number = parseInt(req.params.user_id);
+  console.log(user_id);
+  if (!user_id) {
+    console.error('provide a valid user id');
+    return res.status(400).json({
+      status: 'fail',
+    });
+  }
+  // Retrieve top players from Redis sorted set in descending order
+  const rank = await redisClient.zrevrank('leaderboard', user_id);
+  // Fetch user details for these top players
+  const score = await redisClient.zscore('leaderboard', user_id);
+
+  console.log(rank, score);
+
+  const player = {
+    rank: rank + 1,
+    user_id: user_id,
+    score: parseFloat(score),
+  };
+  res.status(200).json({
+    status: 'success',
+    player,
+  });
+});
+
+export { getTopPlayers, getPlayerRank };
