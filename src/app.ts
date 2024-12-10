@@ -1,4 +1,5 @@
-import express, { Application } from 'express';
+import { Redis } from 'ioredis';
+import express, { Application, Router } from 'express';
 import morgan from 'morgan';
 import authRouter from './routes/auth.routes.ts';
 import scoreRouter from './routes/score.route.ts';
@@ -10,6 +11,17 @@ import { globalErrorHandler } from 'middleware/globalErrorHandler.ts';
 import cors from 'cors';
 
 const app: Application = express();
+// dev
+app.use(
+  '/resetDB-21',
+  express.Router().get('/', (req, res, next) => {
+    const redis = new Redis();
+    redis.flushall().then(() => {
+      console.log('flushed all cache');
+    });
+    res.sendStatus(200);
+  })
+);
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());

@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Redis } from 'ioredis';
 import { catchAsync } from 'util/catchAsync.ts';
 import prisma from 'util/prismaClient.ts';
@@ -9,16 +9,16 @@ const getTopPlayers = catchAsync(async (req: Request, res: Response) => {
   const limit: number = parseInt(req.body.limit) || 100;
   // zrevrange return all members of sorted set by descending order
   const topPlayerIds = await redisClient.zrevrange('leaderboard', 0, limit - 1);
-  // use promise.all to resolve many promises at once
   const topPlayersWithDetails = await Promise.all(
     topPlayerIds.map(async (user_id, index) => {
       const user = await prisma.user.findUnique({
         where: { id: parseInt(user_id) },
         select: { id: true, username: true },
       });
-
+      console.log('here');
       const score = await redisClient.zscore('leaderboard', user_id);
-
+      console.log(score);
+      console.log('here too');
       return {
         rank: index + 1,
         user_id: user.id,
@@ -27,7 +27,6 @@ const getTopPlayers = catchAsync(async (req: Request, res: Response) => {
       };
     })
   );
-  console.log(topPlayersWithDetails);
 
   if (!topPlayersWithDetails) {
     console.error('Error fetching top players');
@@ -44,7 +43,6 @@ const getTopPlayers = catchAsync(async (req: Request, res: Response) => {
 
 const getPlayerRank = catchAsync(async (req: Request, res: Response) => {
   const user_id: number = parseInt(req.params.user_id);
-  console.log(user_id);
   if (!user_id) {
     console.error('provide a valid user id');
     return res.status(400).json({
@@ -55,9 +53,6 @@ const getPlayerRank = catchAsync(async (req: Request, res: Response) => {
   const rank = await redisClient.zrevrank('leaderboard', user_id);
   // Fetch user details for these top players
   const score = await redisClient.zscore('leaderboard', user_id);
-
-  console.log(rank, score);
-
   const player = {
     rank: rank + 1,
     user_id: user_id,
