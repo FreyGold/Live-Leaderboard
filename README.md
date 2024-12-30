@@ -151,11 +151,10 @@ A real-time leaderboard system built using **Node.js**, **TypeScript**, **Expres
 
 ## 🚀 Future Improvements
 
-- Add support for additional sorting metrics (e.g., time-based leaderboards).
 - Implement pagination for large leaderboards.
 - Introduce roles and permissions for admins.
 - Enhance caching and cron job configurations for better performance.
-- Store some of the cache in the database to reduce computing task on the server with the user base increasing
+- Persist the leaderboard in the database to reduce computing task of calculating everything from zero on the server with the user base increasing
 
 ---
 
