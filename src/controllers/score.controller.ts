@@ -1,11 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
-import { Redis } from 'ioredis';
+import { Request, Response } from 'express';
 import { updateScores } from 'middleware/caching.middleware.ts';
 import { catchAsync } from 'util/catchAsync.ts';
 import factory from 'util/factory.ts';
 import prisma from 'util/prismaClient.ts';
 
-const redisClient = new Redis();
 const scoreFactory = factory('score');
 
 const readScore = catchAsync(async (req: Request, res: Response) => {
