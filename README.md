@@ -7,7 +7,7 @@
 - [x] Top Players Report: Generate reports on the top players for a specific period
 # 🏆 Live Leaderboard
 
-A real-time leaderboard system built using **Node.js**, **TypeScript**, **Express**, **Redis**, and **Prisma**. This project leverages caching and cron jobs for real-time leaderboard updates and efficient management.
+A real-time leaderboard system built using **Node.js**, **TypeScript**, **Express**, **Redis**, and **Prisma**. This project leverages caching for real-time leaderboard updates and efficient management.
 
 ---
 
@@ -37,8 +37,8 @@ A real-time leaderboard system built using **Node.js**, **TypeScript**, **Expres
 
 ### ✅ Prerequisites
 
-- Node.js (v16 or above)
-- Redis (latest version)
+- Node.js 
+- Redis
 - PostgreSQL (or any supported database for Prisma)
 
 ### 🛠️ Installation
@@ -141,10 +141,6 @@ A real-time leaderboard system built using **Node.js**, **TypeScript**, **Expres
 - **Build for Production:**
   ```bash
   npm run build
-  ```
-- **Run Tests:**
-  ```bash
-  npm run test
   ```
 
 ---
